@@ -9,6 +9,10 @@ import org.apache.hadoop.mapreduce.Reducer;
 public class MaxTemperatureReducer
   extends Reducer<Text, IntWritable, Text, IntWritable> {
   
+	// Extend base Reducer class and override reduce function
+	
+	
+	// parameter input key and list of assosiated values and output object of context class
   @Override
   public void reduce(Text key, Iterable<IntWritable> values,
       Context context)
