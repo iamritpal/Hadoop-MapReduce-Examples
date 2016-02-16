@@ -39,14 +39,14 @@ public class JoinFilterExampleMRJob implements Tool {
     job.setJarByClass(JoinFilterExampleMRJob.class);
     job.setJobName("JoinFilterExampleMRJob");		// Name the job so it will be easy to find in logs
 
-    //C
+    //C				// Configuration object that will be available to all map and reduce tasks
     Configuration config = job.getConfiguration();
     config.set(FOO_TABLE_CONF, inputFoo);
     config.set(BAR_TABLE_CONF, inputBar);
     config.set(FOO_VAL_MAX_CONF, fooValueMaxFilter);
     config.set(JOIN_VAL_MAX_CONF, joinValueMaxFilter);
 
-    // D
+    // D 		// set multiple input directories and 1 output directories
     job.setInputFormatClass(TextInputFormat.class);
     TextInputFormat.addInputPath(job, new Path(inputFoo));
     TextInputFormat.addInputPath(job, new Path(inputBar));
@@ -55,7 +55,7 @@ public class JoinFilterExampleMRJob implements Tool {
     job.setOutputFormatClass(TextOutputFormat.class);
     TextOutputFormat.setOutputPath(job, new Path(output));
 
-    // F
+    // F 			// set mapper, reducer and partitioner
     job.setMapperClass(JoinFilterMapper.class);
     job.setReducerClass(JoinFilterReducer.class);
     job.setPartitionerClass(JoinFilterPartitioner.class);
@@ -66,7 +66,7 @@ public class JoinFilterExampleMRJob implements Tool {
     job.setMapOutputKeyClass(Text.class);
     job.setMapOutputValueClass(Text.class);
 
-    //H
+    //H  			// Configure number of reducers
     job.setNumReduceTasks(numberOfReducers);
 
     // I

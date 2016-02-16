@@ -12,6 +12,7 @@ public class JoinFilterReducer extends Reducer<Text, Text, NullWritable, Text> {
   int joinValFilter;
   String currentBarId = "";
   ArrayList<Integer> barBufferList = new ArrayList<Integer>();
+  static int count=0;
 
   Text newValue = new Text();
 
@@ -29,8 +30,15 @@ public class JoinFilterReducer extends Reducer<Text, Text, NullWritable, Text> {
     String barId = keyString.substring(0, keyString.length() - 2);
     String sortFlag = keyString.substring(keyString.length() - 1);
 
-    System.out.println(keyString);
-
+    
+    //System.out.println(keyString);
+    /*
+    for (Text value : values) {
+    	System.out.print(value.toString() + ",");
+    }*/
+    //System.out.println("COUNT =" + count++);
+    
+    
     if (!currentBarId.equals(barId)) {
       barBufferList.clear();
       currentBarId = barId;
@@ -40,7 +48,9 @@ public class JoinFilterReducer extends Reducer<Text, Text, NullWritable, Text> {
       for (Text value : values) {
         barBufferList.add(Integer.parseInt(value.toString()));
       }
+      //System.out.println("barfileinp");
     } else {
+    	//System.out.println("FOOfileinp");
       if (barBufferList.size() > 0) {
         for (Text value : values) {
           for (Integer barValue : barBufferList) {
