@@ -33,6 +33,11 @@ public class JoinFilterReducer extends Reducer<Text, Text, NullWritable, Text> {
     
     System.out.println(keyString);
     
+    // because output key of map function has barflag = A and foo flag = B
+    // since data is sorted by keys out foo data will always be the later one
+    // that is we can stuff data into arraylist and use it afterwards.
+    
+    
     //for (Text value : values) {
     	//System.out.print(value.toString() + ",");
     //}

@@ -9,6 +9,7 @@ public class JoinFilterPartitioner extends Partitioner<Text, Text>{
 	 * our multipart key contains join key plus sort flag, we need to partition only by id
 	 * so that both records with the same join key will end up in the same reducer regardless
 	 * of whether the original arrived from foo or bar.
+	 * 
 	 * This is where the magic happens
 	 */
 	
