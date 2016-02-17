@@ -50,7 +50,7 @@ public class JoinFilterExampleMRJob implements Tool {
     job.setInputFormatClass(TextInputFormat.class);
     TextInputFormat.addInputPath(job, new Path(inputFoo));
     TextInputFormat.addInputPath(job, new Path(inputBar));
-
+    
     // E
     job.setOutputFormatClass(TextOutputFormat.class);
     TextOutputFormat.setOutputPath(job, new Path(output));

@@ -31,11 +31,12 @@ public class JoinFilterReducer extends Reducer<Text, Text, NullWritable, Text> {
     String sortFlag = keyString.substring(keyString.length() - 1);
 
     
-    //System.out.println(keyString);
-    /*
-    for (Text value : values) {
-    	System.out.print(value.toString() + ",");
-    }*/
+    System.out.println(keyString);
+    
+    //for (Text value : values) {
+    	//System.out.print(value.toString() + ",");
+    //}
+    //System.out.println();
     //System.out.println("COUNT =" + count++);
     
     
