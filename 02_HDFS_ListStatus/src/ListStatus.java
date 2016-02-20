@@ -1,4 +1,8 @@
 // cc ListStatus Shows the file statuses for a collection of paths in a Hadoop filesystem 
+
+// input parameter: hdfs://localhost:54310
+
+
 import java.net.URI;
 
 import org.apache.hadoop.conf.Configuration;
