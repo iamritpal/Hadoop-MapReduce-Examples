@@ -7,6 +7,7 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+// run conf arguments: hdfs://localhost:54310/user/amritpal/04_ReduceJoin/input/sales/ hdfs://localhost:54310/user/amritpal/04_ReduceJoin/input/accounts/ hdfs://localhost:54310/user/amritpal/04_ReduceJoin/output
 
 public class ReduceJoinDriver {
     public static void main(String[] args) throws Exception {
