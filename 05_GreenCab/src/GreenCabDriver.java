@@ -35,7 +35,7 @@ public class GreenCabDriver implements Tool {
 		job.setJarByClass(GreenCabDriver.class);
 		
 		// Name the job so it will be easy to find in logs
-	    job.setJobName("GreenCabDriver");
+		job.setJobName("GreenCabDriver");
 		
 		// Return the configuration for the job.
 		Configuration config = job.getConfiguration();
@@ -43,21 +43,21 @@ public class GreenCabDriver implements Tool {
 
 		// Set input format and directory path
 		job.setInputFormatClass(TextInputFormat.class);
-	    TextInputFormat.addInputPath(job, new Path(inpDir));
+		TextInputFormat.addInputPath(job, new Path(inpDir));
 
-	    // Set output format and directory path
-	    job.setOutputFormatClass(TextOutputFormat.class);
-	    TextOutputFormat.setOutputPath(job, new Path(outDir));
-	    
-	    // Set mapper and reduce classes for the mapreduce job
-	    job.setMapperClass(GreenCabMapper.class);
-	    job.setReducerClass(GreenCabReducer.class);
-	    
-	    // Set number of reducers
-	    job.setNumReduceTasks(nmbOfReducers);
-	    
-	    // Execute job, wait for success or failure and return status
-        return job.waitForCompletion(true) ? 0 : 1;
+		// Set output format and directory path
+		job.setOutputFormatClass(TextOutputFormat.class);
+		TextOutputFormat.setOutputPath(job, new Path(outDir));
+		
+		// Set mapper and reduce classes for the mapreduce job
+		job.setMapperClass(GreenCabMapper.class);
+		job.setReducerClass(GreenCabReducer.class);
+		
+		// Set number of reducers
+		job.setNumReduceTasks(nmbOfReducers);
+		
+		// Execute job, wait for success or failure and return status
+		return job.waitForCompletion(true) ? 0 : 1;
 
 	}
 	
@@ -66,8 +66,8 @@ public class GreenCabDriver implements Tool {
 		
 		// Let ToolRunner handle generic command-line options
 		int res = ToolRunner.run(new Configuration(), new GreenCabDriver(), args);
-        
-        System.exit(res);
+		
+		System.exit(res);
 	}
 	
 	
