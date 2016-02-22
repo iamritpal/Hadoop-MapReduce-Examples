@@ -3,17 +3,18 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;			// https://hadoop.apache.org/docs/r2.4.1/api/org/apache/hadoop/util/Tool.html
 import org.apache.hadoop.util.ToolRunner;
 
 
-// Problem: we want to analyze input data to check and see where picking
-//			up passengers is best for TLC drivers.
+// Problem: Get maximum tip for each of the days in the month for a given csv file
+
+// Download input from: http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml
+// Sample used in this green_tripdata_2015-12.csv
 
 // hdfs://localhost:54310/user/amritpal/05_GreenCab/input/ hdfs://localhost:54310/user/amritpal/05_GreenCab/output/
 
@@ -42,16 +43,19 @@ public class GreenCabDriver implements Tool {
 		config.set(INP_TABLE_CONF, inpDir);
 
 		// Set input format and directory path
-		job.setInputFormatClass(TextInputFormat.class);
-		TextInputFormat.addInputPath(job, new Path(inpDir));
+		//job.setInputFormatClass(TextInputFormat.class);
+		FileInputFormat.addInputPath(job, new Path(inpDir));
 
 		// Set output format and directory path
-		job.setOutputFormatClass(TextOutputFormat.class);
-		TextOutputFormat.setOutputPath(job, new Path(outDir));
+		//job.setOutputFormatClass(TextOutputFormat.class);
+		FileOutputFormat.setOutputPath(job, new Path(outDir));
 		
 		// Set mapper and reduce classes for the mapreduce job
 		job.setMapperClass(GreenCabMapper.class);
 		job.setReducerClass(GreenCabReducer.class);
+		
+	    job.setOutputKeyClass(Text.class);
+	    job.setOutputValueClass(DoubleWritable.class);
 		
 		// Set number of reducers
 		job.setNumReduceTasks(nmbOfReducers);
