@@ -9,7 +9,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class GreenCabMapper extends
-	Mapper<LongWritable, Text, Text, DoubleWritable> {
+	Mapper<LongWritable, Text, Text, DoubleWritable> {		// k1, v1, k2, v2
 
 	static int lineCounter = 0;
 	
