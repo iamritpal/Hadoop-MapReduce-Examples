@@ -41,7 +41,7 @@ public static final String INP_TABLE_CONF = "custom.inp.table.file";
 		job.setJarByClass(InfoSearchDriver.class);
 		
 		// Name the job so it will be easy to find in logs
-		job.setJobName("GreenCabDriver");
+		job.setJobName("InfoSearchDriver");
 		
 		// Return the configuration for the job.
 		Configuration config = job.getConfiguration();
