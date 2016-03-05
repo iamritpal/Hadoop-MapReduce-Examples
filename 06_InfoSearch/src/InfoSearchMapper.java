@@ -22,8 +22,6 @@ public class InfoSearchMapper extends
 		while (tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
 			
-			System.out.println(token);
-			
 			// Check if token contains substring with searchKeyword
             if (token.contains(name)) {
             	
