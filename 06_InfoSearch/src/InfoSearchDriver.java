@@ -57,12 +57,12 @@ public class InfoSearchDriver implements Tool {
 		job.setMapperClass(InfoSearchMapper.class);
 		job.setReducerClass(InfoSearchReducer.class);
 		
-        // Set output format and directory path
-        FileOutputFormat.setOutputPath(job, new Path(outDir));
+		// Set output format and directory path
+		FileOutputFormat.setOutputPath(job, new Path(outDir));
         
-        // Set the key, value types expected as output from both the map and reduce phases
-        job.setOutputKeyClass(Text.class);
-	    job.setOutputValueClass(IntWritable.class);
+		// Set the key, value types expected as output from both the map and reduce phases
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
 	    
 		// Set number of reducers
 		job.setNumReduceTasks(nmbOfReducers);
