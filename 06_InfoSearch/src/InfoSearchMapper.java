@@ -9,14 +9,19 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class InfoSearchMapper extends
-	Mapper<LongWritable, Text, Text, IntWritable> {		// k1, v1, k2, v2
-
+	Mapper<LongWritable, Text, Text, IntWritable> {		// <k1, v1, k2, v2>
+														// k1 = mapper key input
+														// v1 = mapper value input
+														// k2 = mapper output key
+														// k2 = mapper output values
 	static String name = "Singh,Amritpal";
 	
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		String line = value.toString();
+		
+		// Tokenize input line
 		StringTokenizer tokenizer = new StringTokenizer(line);
 		
 		while (tokenizer.hasMoreTokens()) {

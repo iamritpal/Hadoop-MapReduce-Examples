@@ -2,7 +2,7 @@
 	Name - Amritpal Singh
 	Class - NYIT CSCI-860 Big Data Analysis
 	Date - 02/27/2016
-	Last modified - 03-04-2016
+	Last modified - 04-02-2016
 	Project Description - Implement a MapReduce program that is able to run by Hadoop
 			on HDFS cluster or node. The program's function is to search for particular 
 			information in multiple files and process the information it finds.
@@ -13,6 +13,8 @@
 				We also define the types for output key and value in the job as Text and FloatWritable respectively.
 */
 
+import org.apache.hadoop.util.Tool;			// https://hadoop.apache.org/docs/r2.4.1/api/org/apache/hadoop/util/Tool.html
+import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
@@ -20,18 +22,16 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.util.Tool;			// https://hadoop.apache.org/docs/r2.4.1/api/org/apache/hadoop/util/Tool.html
-import org.apache.hadoop.util.ToolRunner;
 
 public class InfoSearchDriver implements Tool {
 	
-public static final String INP_TABLE_CONF = "custom.inp.table.file";
+    public static final String INP_TABLE_CONF = "custom.inp.table.file";
 	
 	@Override
 	public int run(String[] args) throws Exception {
-		String inpDir = args[0];
-		String outDir = args[1];
-		int nmbOfReducers = Integer.parseInt(args[2]);
+		String inpDir = args[0];                            // HDFS Input Directory Path
+		String outDir = args[1];                            // HDFS Output Directory Path
+		int nmbOfReducers = Integer.parseInt(args[2]);      // Also input value for number of reducers
 		
 		// Creates a new Job with no particular Cluster. 
 		// A Cluster will be created with a generic Configuration.
@@ -46,22 +46,24 @@ public static final String INP_TABLE_CONF = "custom.inp.table.file";
 		// Return the configuration for the job.
 		Configuration config = job.getConfiguration();
 		config.set(INP_TABLE_CONF, inpDir);
+		
+		// Change the default key/value output separator by setting the property
+		config.set("mapreduce.output.textoutputformat.separator", ":");
 
 		// Set input format and directory path
-		//job.setInputFormatClass(TextInputFormat.class);
 		FileInputFormat.addInputPath(job, new Path(inpDir));
-
-		// Set output format and directory path
-		//job.setOutputFormatClass(TextOutputFormat.class);
-		FileOutputFormat.setOutputPath(job, new Path(outDir));
-		
+        
 		// Set mapper and reduce classes for the mapreduce job
 		job.setMapperClass(InfoSearchMapper.class);
 		job.setReducerClass(InfoSearchReducer.class);
 		
-	    job.setOutputKeyClass(Text.class);
+        // Set output format and directory path
+        FileOutputFormat.setOutputPath(job, new Path(outDir));
+        
+        // Set the key, value types expected as output from both the map and reduce phases
+        job.setOutputKeyClass(Text.class);
 	    job.setOutputValueClass(IntWritable.class);
-		
+	    
 		// Set number of reducers
 		job.setNumReduceTasks(nmbOfReducers);
 		
